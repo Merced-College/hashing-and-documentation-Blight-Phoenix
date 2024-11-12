@@ -1,8 +1,17 @@
-package hashingAndDocumentation;
+//package hashingAndDocumentation;
+
+/**SongRecord
+*Author:Jonathan Her
+/*Date: 11/12/24
+
 import java.util.List;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * The SongRecord class represents a record of a song with various attributes.
+ * It provides functionality to store, retrieve, and manipulate song data.
+ */
 public class SongRecord {
     // Instance variables
     private double valence;
@@ -25,7 +34,9 @@ public class SongRecord {
     private double speechiness;
     private double tempo;
 
-    // Default constructor
+    /**
+     * Default constructor initializing all fields to default values.
+     */
     public SongRecord() {
         this.valence = 0.0;
         this.year = 0;
@@ -48,17 +59,25 @@ public class SongRecord {
         this.tempo = 0.0;
     }
 
-    // Constructor that takes a CSV string and parses it
+    /**
+     * Constructor that initializes the SongRecord object using a CSV string.
+     *
+     * @param data CSV string representing song attributes.
+     * @throws IllegalArgumentException if data is malformed or missing fields.
+     */
     public SongRecord(String data) {
         String[] fields = data.split(","); // Assuming comma-separated values
         
-    	//fields = data.split(",");//means no quotes in the record
-    	
-    	/*System.out.println("fields length " + fields.length);
-    	for(int i = 0; i < fields.length; i++) {
-        	System.out.println("fields " + i + " = " + fields[i]);
+        //fields = data.split(",");//means no quotes in the record
+        
+        /*System.out.println("fields length " + fields.length);
+        for(int i = 0; i < fields.length; i++) {
+            System.out.println("fields " + i + " = " + fields[i]);
         }*/
-    	this.valence = Double.parseDouble(fields[0]);
+        if (fields.length != 19) {
+            throw new IllegalArgumentException("CSV data is malformed or missing fields.");
+        }
+        this.valence = Double.parseDouble(fields[0]);
         this.year = Integer.parseInt(fields[1]);
         this.acousticness = Double.parseDouble(fields[2]);
         this.artists = Arrays.asList(fields[3].replaceAll("[\\[\\]']", "").split(";"));
@@ -77,123 +96,272 @@ public class SongRecord {
         this.releaseDate = fields[16];
         this.speechiness = Double.parseDouble(fields[17]);
         this.tempo = Double.parseDouble(fields[18]);
-        
     }
 
     // Getters and setters for each field
-    public double getValence() { return valence; }
-    public void setValence(double valence) { this.valence = valence; }
 
-    public int getYear() { return year; }
-    public void setYear(int year) { this.year = year; }
-
-    public double getAcousticness() { return acousticness; }
-    public void setAcousticness(double acousticness) { this.acousticness = acousticness; }
-
-    public List<String> getArtists() { return artists; }
-    public void setArtists(List<String> artists) { this.artists = artists; }
-
-    public double getDanceability() { return danceability; }
-    public void setDanceability(double danceability) { this.danceability = danceability; }
-
-    public int getDurationMs() { return durationMs; }
-    public void setDurationMs(int durationMs) { this.durationMs = durationMs; }
-
-    public double getEnergy() { return energy; }
-    public void setEnergy(double energy) { this.energy = energy; }
-
-    public int getExplicit() { return explicit; }
-    public void setExplicit(int explicit) { this.explicit = explicit; }
-
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
-    public double getInstrumentalness() { return instrumentalness; }
-    public void setInstrumentalness(double instrumentalness) { this.instrumentalness = instrumentalness; }
-
-    public int getKey() { return key; }
-    public void setKey(int key) { this.key = key; }
-
-    public double getLiveness() { return liveness; }
-    public void setLiveness(double liveness) { this.liveness = liveness; }
-
-    public double getLoudness() { return loudness; }
-    public void setLoudness(double loudness) { this.loudness = loudness; }
-
-    public int getMode() { return mode; }
-    public void setMode(int mode) { this.mode = mode; }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public int getPopularity() { return popularity; }
-    public void setPopularity(int popularity) { this.popularity = popularity; }
-
-    public String getReleaseDate() { return releaseDate; }
-    public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
-
-    public double getSpeechiness() { return speechiness; }
-    public void setSpeechiness(double speechiness) { this.speechiness = speechiness; }
-
-    public double getTempo() { return tempo; }
-    public void setTempo(double tempo) { this.tempo = tempo; }
-
-    // toString method
-    @Override
-    public String toString() {
-        return "SongRecord{" +
-                "valence=" + valence +
-                ", year=" + year +
-                ", acousticness=" + acousticness +
-                ", artists=" + artists +
-                ", danceability=" + danceability +
-                ", durationMs=" + durationMs +
-                ", energy=" + energy +
-                ", explicit=" + explicit +
-                ", id='" + id + '\'' +
-                ", instrumentalness=" + instrumentalness +
-                ", key=" + key +
-                ", liveness=" + liveness +
-                ", loudness=" + loudness +
-                ", mode=" + mode +
-                ", name='" + name + '\'' +
-                ", popularity=" + popularity +
-                ", releaseDate=" + releaseDate +
-                ", speechiness=" + speechiness +
-                ", tempo=" + tempo +
-                '}';
+    /**
+     * Returns the valence of the song.
+     *
+     * @return valence of the song.
+     */
+    public double getValence() {
+        return valence;
     }
 
-    // equals method
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SongRecord that = (SongRecord) o;
-        return Double.compare(that.valence, valence) == 0 &&
-                year == that.year &&
-                Double.compare(that.acousticness, acousticness) == 0 &&
-                Objects.equals(artists, that.artists) &&
-                Double.compare(that.danceability, danceability) == 0 &&
-                durationMs == that.durationMs &&
-                Double.compare(that.energy, energy) == 0 &&
-                explicit == that.explicit &&
-                Objects.equals(id, that.id) &&
-                Double.compare(that.instrumentalness, instrumentalness) == 0 &&
-                key == that.key &&
-                Double.compare(that.liveness, liveness) == 0 &&
-                Double.compare(that.loudness, loudness) == 0 &&
-                mode == that.mode &&
-                Objects.equals(name, that.name) &&
-                popularity == that.popularity &&
-                releaseDate == that.releaseDate &&
-                Double.compare(that.speechiness, speechiness) == 0 &&
-                Double.compare(that.tempo, tempo) == 0;
+    /**
+     * Sets the valence of the song.
+     *
+     * @param valence valence of the song.
+     */
+    public void setValence(double valence) {
+        this.valence = valence;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(valence, year, acousticness, artists, danceability, durationMs, energy, explicit, id,
-                instrumentalness, key, liveness, loudness, mode, name, popularity, releaseDate, speechiness, tempo);
+    /**
+     * Returns the year of release of the song.
+     *
+     * @return year of release.
+     */
+    public int getYear() {
+        return year;
     }
-}
+
+    /**
+     * Sets the year of release of the song.
+     *
+     * @param year year of release.
+     */
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    /**
+     * Returns the acousticness of the song.
+     *
+     * @return acousticness of the song.
+     */
+    public double getAcousticness() {
+        return acousticness;
+    }
+
+    /**
+     * Sets the acousticness of the song.
+     *
+     * @param acousticness acousticness of the song.
+     */
+    public void setAcousticness(double acousticness) {
+        this.acousticness = acousticness;
+    }
+
+    /**
+     * Returns the list of artists of the song.
+     *
+     * @return list of artists.
+     */
+    public List<String> getArtists() {
+        return artists;
+    }
+
+    /**
+     * Sets the list of artists of the song.
+     *
+     * @param artists list of artists.
+     */
+    public void setArtists(List<String> artists) {
+        this.artists = artists;
+    }
+
+    /**
+     * Returns the danceability of the song.
+     *
+     * @return danceability of the song.
+     */
+    public double getDanceability() {
+        return danceability;
+    }
+
+    /**
+     * Sets the danceability of the song.
+     *
+     * @param danceability danceability of the song.
+     */
+    public void setDanceability(double danceability) {
+        this.danceability = danceability;
+    }
+
+    /**
+     * Returns the duration of the song in milliseconds.
+     *
+     * @return duration of the song in milliseconds.
+     */
+    public int getDurationMs() {
+        return durationMs;
+    }
+
+    /**
+     * Sets the duration of the song in milliseconds.
+     *
+     * @param durationMs duration of the song in milliseconds.
+     */
+    public void setDurationMs(int durationMs) {
+        this.durationMs = durationMs;
+    }
+
+    /**
+     * Returns the energy level of the song.
+     *
+     * @return energy level of the song.
+     */
+    public double getEnergy() {
+        return energy;
+    }
+
+    /**
+     * Sets the energy level of the song.
+     *
+     * @param energy energy level of the song.
+     */
+    public void setEnergy(double energy) {
+        this.energy = energy;
+    }
+
+    /**
+     * Returns whether the song is explicit or not.
+     *
+     * @return 1 if explicit, 0 otherwise.
+     */
+    public int getExplicit() {
+        return explicit;
+    }
+
+    /**
+     * Sets whether the song is explicit or not.
+     *
+     * @param explicit 1 if explicit, 0 otherwise.
+     */
+    public void setExplicit(int explicit) {
+        this.explicit = explicit;
+    }
+
+    /**
+     * Returns the unique identifier of the song.
+     *
+     * @return unique identifier of the song.
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Sets the unique identifier of the song.
+     *
+     * @param id unique identifier of the song.
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Returns the instrumentalness of the song.
+     *
+     * @return instrumentalness of the song.
+     */
+    public double getInstrumentalness() {
+        return instrumentalness;
+    }
+
+    /**
+     * Sets the instrumentalness of the song.
+     *
+     * @param instrumentalness instrumentalness of the song.
+     */
+    public void setInstrumentalness(double instrumentalness) {
+        this.instrumentalness = instrumentalness;
+    }
+
+    /**
+     * Returns the key of the song.
+     *
+     * @return key of the song.
+     */
+    public int getKey() {
+        return key;
+    }
+
+    /**
+     * Sets the key of the song.
+     *
+     * @param key key of the song.
+     */
+    public void setKey(int key) {
+        this.key = key;
+    }
+
+    /**
+     * Returns the liveness of the song.
+     *
+     * @return liveness of the song.
+     */
+    public double getLiveness() {
+        return liveness;
+    }
+
+    /**
+     * Sets the liveness of the song.
+     *
+     * @param liveness liveness of the song.
+     */
+    public void setLiveness(double liveness) {
+        this.liveness = liveness;
+    }
+
+    /**
+     * Returns the loudness of the song.
+     *
+     * @return loudness of the song.
+     */
+    public double getLoudness() {
+        return loudness;
+    }
+
+    /**
+     * Sets the loudness of the song.
+     *
+     * @param loudness loudness of the song.
+     */
+    public void setLoudness(double loudness) {
+        this.loudness = loudness;
+    }
+
+    /**
+     * Returns the mode of the song.
+     *
+     * @return mode of the song.
+     */
+    public int getMode() {
+        return mode;
+    }
+
+    /**
+     * Sets the mode of the song.
+     *
+     * @param mode mode of the song.
+     */
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
+
+    /**
+     * Returns the name of the song.
+     *
+     * @return name of the song.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the name of the song.
+     *
+     * @param
