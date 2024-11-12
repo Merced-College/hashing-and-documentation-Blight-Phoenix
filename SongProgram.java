@@ -1,7 +1,8 @@
 package hashingAndDocumentation;
 /** SongProgram.java
     *Author: Jonathan Her
-    /*Date: 11/12/24
+    *Date: 11/12/24
+    */
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,9 +17,6 @@ import java.awt.event.ActionListener;
  * The SongProgram class provides functionality to load song records from a CSV file, 
  * retrieve song records by their ID, and display all loaded songs. It also includes 
  * a GUI for searching songs by their ID.
- * 
- * Author: Jonathan Her
- * Date: 11/12/24
  */
 public class SongProgram {
 
